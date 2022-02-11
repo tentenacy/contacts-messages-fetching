@@ -1,13 +1,9 @@
 package com.tenutz.contactsmessagesfetching
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.ContactsContract
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.tenutz.contactsmessagesfetching.adapter.ContactsAdapter
 import com.tenutz.contactsmessagesfetching.databinding.ActivityContactsBinding
 import com.tenutz.contactsmessagesfetching.dto.Contact
@@ -26,7 +22,7 @@ class ContactsActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         initAdapter()
-        readPhoneContacts()
+        fetchPhoneContacts()
     }
 
     private fun initAdapter() {
@@ -34,7 +30,7 @@ class ContactsActivity: AppCompatActivity() {
     }
 
     @SuppressLint("Range", "Recycle")
-    private fun readPhoneContacts() {
+    private fun fetchPhoneContacts() {
         val contacts = arrayListOf<Contact>()
 
         val projection = arrayOf(

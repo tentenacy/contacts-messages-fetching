@@ -18,6 +18,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setOnClickListeners()
+        initViews()
+        requestRequiredPermission()
+    }
+
+    private fun setOnClickListeners() {
         binding.btnMainContacts.setOnClickListener {
             startActivity(Intent(this, ContactsActivity::class.java))
         }
@@ -25,22 +31,24 @@ class MainActivity : AppCompatActivity() {
         binding.btnMainMessages.setOnClickListener {
             startActivity(Intent(this, MessagesActivity::class.java))
         }
-
-        initViews()
-        requestRequiredPermission()
     }
 
     private fun initViews() {
         binding.btnMainContacts.isEnabled = !isReadContactsNotGranted()
+        binding.btnMainMessages.isEnabled = !isReadSMSNotGranted()
     }
 
     private fun requestRequiredPermission() {
-        if(isReadContactsNotGranted()) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS), 100)
+        if(isReadContactsNotGranted() || isReadSMSNotGranted()) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_SMS), 100)
         }
     }
 
     private fun isReadContactsNotGranted(): Boolean =
         ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED ||
         ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED
+
+    private fun isReadSMSNotGranted(): Boolean =
+        ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED
 }

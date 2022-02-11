@@ -7,5 +7,5 @@ data class Message(
     val contactId: String,
     val contactIdString: String,
     val timeStamp: Long,
-    val body: String,
+    val body: String?,
 )
