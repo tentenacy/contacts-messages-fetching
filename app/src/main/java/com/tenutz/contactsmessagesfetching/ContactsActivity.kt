@@ -53,6 +53,11 @@ class ContactsActivity: AppCompatActivity() {
                 val name = it.getString(it.getColumnIndex(projection[1]))
                 val phone = it.getString(it.getColumnIndex(projection[2]))
 
+                //phone types
+                //type 1: 010-1234-1234 -> -가 2개인 경우
+                //type 2: 01012341234 -> -가 없는 경우
+                //type 3: +821012341234 -> +가 맨 앞에 오는 경우
+                //type 4: 1234-1234 -> -가 1개인 경우
                 contacts.add(Contact(id, name, phone))
             }
         }
