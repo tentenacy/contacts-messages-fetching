@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestRequiredPermission() {
-        if(isReadContactsNotGranted() || isReadSMSNotGranted()) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_SMS), 100)
+        if(isReadContactsNotGranted() || isReadSMSNotGranted() || isReceiveSMSNotGranted() || isReceiveMMSNotGranted()) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.RECEIVE_MMS), 100)
         }
     }
 
@@ -51,4 +51,12 @@ class MainActivity : AppCompatActivity() {
     private fun isReadSMSNotGranted(): Boolean =
         ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED
+
+    private fun isReceiveSMSNotGranted(): Boolean =
+        ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_DENIED
+
+    private fun isReceiveMMSNotGranted(): Boolean =
+        ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.RECEIVE_MMS) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.RECEIVE_MMS) == PackageManager.PERMISSION_DENIED
 }
